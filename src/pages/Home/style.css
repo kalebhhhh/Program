@@ -1,0 +1,128 @@
+.menusLeft {
+     position: fixed;     /* fixa na tela */
+  top: 0;              /* começa no topo */
+  left: 0;             /* encostado na esquerda */
+  height: 100vh;       /* ocupa toda a altura da tela */
+  width: 250px;        /* largura do menu */
+  background: #2a323f; /* cor de fundo */
+  box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+  transition: width 0.6s ease-in-out;
+  z-index: 1000;
+
+    padding-right: 19px;
+    padding-top: 73px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100px;
+    height: -webkit-fill-available;
+    background: #2a323f;
+    transition: background 4.2s linear(1.13 72.79%, 1.35 45.59%), width 0.6s ease-in-out;
+    z-index: 1000;
+    white-space: nowrap;
+    overflow: hidden;
+    box-shadow: -7px 0px 16px #113038;
+}
+.menusLeft:hover{
+    width: 250px;
+    opacity: 1;
+    
+}
+
+.backgroundMENU{
+    background-color: #374349ad;
+    
+    padding-left: 8px;
+    padding-top: 18px;
+    height: 100%;
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.6), inset 0px 0px 3px rgb(18 50 58);
+}
+
+.menuICO{
+    display: flex;
+    margin: 0;
+    border-radius: 10px;
+    padding-right: 10px;
+    height: 85px;
+    align-items: center;
+    padding-left: 6px;
+    margin-bottom: 10px;
+}
+.menuICO:hover{
+    background-color: rgb(67 94 107 / 61%);
+    transition: 1s;
+    width: 94%;
+    
+}
+.menu-text {
+    align-items: center;
+    color: white;
+    margin-left: 17px;
+    opacity: 0;           
+    white-space: nowrap;  
+    transition: opacity 0.8s ease; 
+    font-weight: bold;
+    margin-top: -4px;
+
+}
+.menusLeft:hover .menu-text{
+    width: 230px;
+    opacity: 1;
+}
+.containers{
+    flex-direction: column;
+    flex: 1;
+    padding-left: 100px;
+    padding-top: 3px;
+    margin-top: 74px;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.carousels {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card-show {
+  text-align: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  min-width: 300px;
+}
+
+.card-image {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.card-title {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.arrow {
+  background: #3498db;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 0 10px;
+  transition: all 0.2s ease;
+}
+
+.arrow:hover {
+  background: #2980b9;
+}
