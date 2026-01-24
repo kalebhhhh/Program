@@ -6,7 +6,7 @@ import IconsPedido from './icos/adicionar-produto.png';
 import IconsBar from './icos/bar-chart.png';
 import IconsUser from './icos/multiple-users-silhouette.png'
 import IconConfig from './icos/config.com.png'
-
+import './carousels.css'
 import fowardbutton from './icos/arrowfoward.png'
 import cadernoexemplo from './icos/caderno.png'
 
@@ -14,23 +14,22 @@ import cadernoexemplo from './icos/caderno.png'
 
 function Home() {
 
-const [activeIndex, setActiveIndex] = useState(0);
+  // Estado que guarda os produtos
+  const [products, setProducts] = useState([
+    { id: 1, name: "Produto 1", description: "Descrição do produto 1" },
+    { id: 2, name: "Produto 2", description: "Descrição do produto 2" }
+  ]);
 
-  const cadernos = [
-    { id: 1, nome: "Caderno1", img: cadernoexemplo },
-    { id: 2, nome: "Caderno2", img: cadernoexemplo },
-    { id: 3, nome: "Caderno3", img: cadernoexemplo },
-  ];
-
-  const prevSlide = () => {
-    setActiveIndex((prev) => (prev === 0 ? cadernos.length - 1 : prev - 1));
+  // Função para adicionar novo produto
+  const addProduct = () => {
+    const newId = products.length + 1;
+    const newProduct = {
+      id: newId,
+      name: `Produto ${newId}`,
+      description: `Descrição do produto ${newId}`
+    };
+    setProducts([...products, newProduct]);
   };
-
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev === cadernos.length - 1 ? 0 : prev + 1));
-  };
-
-
 
 
   return (
@@ -62,19 +61,124 @@ const [activeIndex, setActiveIndex] = useState(0);
 
       <div className="containers">
         <div className="carousels">
-            <button className="arrow left" onClick={prevSlide}>‹</button>
 
-      <div className="card-show">
-        <img src={cadernos[activeIndex].img} alt={cadernos[activeIndex].nome} className="card-image" />
-        <h2 className="card-title">{cadernos[activeIndex].nome}</h2>
-      </div>
+          <section>
+            <div className="container">
+              <div className="carousel">
+                <input type="radio" name="slides" defaultChecked id="slide-1" />
+                <input type="radio" name="slides" id="slide-2" />
+                <input type="radio" name="slides" id="slide-3" />
+                <input type="radio" name="slides" id="slide-4" />
+                <input type="radio" name="slides" id="slide-5" />
+                <input type="radio" name="slides" id="slide-6" />
 
-      <button className="arrow right" onClick={nextSlide}>›</button>
+                <ul className="carousel__slides">
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1041/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Tim Marshall</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1043/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Christian Joudrey</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1044/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Steve Carter</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1045/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Aleksandra Boguslawska</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1049/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Rosan Harmens</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                  <li className="carousel__slide">
+                    <figure>
+                      <div>
+                        <img src="https://picsum.photos/id/1052/800/450" alt="" />
+                      </div>
+                      <figcaption>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        <span className="credit">Photo: Annie Spratt</span>
+                      </figcaption>
+                    </figure>
+                  </li>
+                </ul>
+
+                <ul className="carousel__thumbnails">
+                  <li><label htmlFor="slide-1"><img src="https://picsum.photos/id/1041/150/150" alt="" /></label></li>
+                  <li><label htmlFor="slide-2"><img src="https://picsum.photos/id/1043/150/150" alt="" /></label></li>
+                  <li><label htmlFor="slide-3"><img src="https://picsum.photos/id/1044/150/150" alt="" /></label></li>
+                  <li><label htmlFor="slide-4"><img src="https://picsum.photos/id/1045/150/150" alt="" /></label></li>
+                  <li><label htmlFor="slide-5"><img src="https://picsum.photos/id/1049/150/150" alt="" /></label></li>
+                  <li><label htmlFor="slide-6"><img src="https://picsum.photos/id/1052/150/150" alt="" /></label></li>
+                </ul>
+              </div>
+            </div>
+          </section>
 
 
         </div>
 
-        <div className="othersconteiner"></div>
+        <div className="othersconteiner">
+
+ <div className="row">
+      {products.map((product) => (
+        <div className="column" key={product.id}>
+          <div className="card">
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+          </div>
+        </div>
+      ))}
+
+      {/* Card especial para adicionar */}
+      <div className="column">
+        <div className="card add-card" onClick={addProduct}>
+          +
+        </div>
+      </div>
+    </div>
+
+
+        </div>
+
         <div className="othersconteiner"></div>
         <div className="othersconteiner"></div>
       </div>

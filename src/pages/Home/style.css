@@ -70,14 +70,13 @@
     opacity: 1;
 }
 .containers{
-    flex-direction: column;
-    flex: 1;
     padding-left: 100px;
-    padding-top: 3px;
-    margin-top: 74px;
     display: flex;
     align-content: center;
     flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    background-color: #808080;
 }
 
 .carousels {
@@ -89,40 +88,47 @@
   padding: 20px;
 }
 
-.card-show {
+/* CARDS PRODUTOS */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 93%;
+    align-items: center;
+    padding-left: 115px;
+}
+
+.column {
+  flex: 1 0 21%;
+  box-sizing: border-box;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 16px;
   text-align: center;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  padding: 20px;
-  min-width: 300px;
-}
-
-.card-image {
-  width: 300px;
-  height: auto;
+  background-color: #fff;
   border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-.card-title {
-  margin-top: 10px;
-  font-size: 1.4rem;
+.add-card {
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 32px;
   font-weight: bold;
-  color: #2c3e50;
-}
-
-.arrow {
-  background: #3498db;
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 8px 12px;
   cursor: pointer;
-  border-radius: 50%;
-  margin: 0 10px;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.arrow:hover {
-  background: #2980b9;
+.add-card:hover {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 1 0 100%;
+  }
 }
