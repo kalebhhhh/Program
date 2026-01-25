@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react'
-import viteLogo from '/vite.svg'
+import { useState, useRef, useEffect } from 'react'
 import './style.css'
 import IconsProduct from './icos/caixa.png';
 import IconsPedido from './icos/adicionar-produto.png';
@@ -7,29 +6,59 @@ import IconsBar from './icos/bar-chart.png';
 import IconsUser from './icos/multiple-users-silhouette.png'
 import IconConfig from './icos/config.com.png'
 import './carousels.css'
-import fowardbutton from './icos/arrowfoward.png'
-import cadernoexemplo from './icos/caderno.png'
+import axios from "axios";
 
 
 
 function Home() {
 
-  // Estado que guarda os produtos
-  const [products, setProducts] = useState([
-    { id: 1, name: "Produto 1", description: "Descrição do produto 1" },
-    { id: 2, name: "Produto 2", description: "Descrição do produto 2" }
-  ]);
+const [searchTerm, setSearchTerm] = useState("");
+const [products, setProducts] = useState([]);
+const [showForm, setShowForm] = useState(false);
+const [newProduct, setNewProduct] = useState ({
+  name: "",
+  description: "",
+  price: ""
+});
 
-  // Função para adicionar novo produto
-  const addProduct = () => {
-    const newId = products.length + 1;
-    const newProduct = {
-      id: newId,
-      name: `Produto ${newId}`,
-      description: `Descrição do produto ${newId}`
-    };
-    setProducts([...products, newProduct]);
+useEffect(() => {
+  axios.get("http://localhost:3322/")
+  .then(res => setProducts(res.data.products))
+  .catch(err => console.error("Erro ao carregar produto", err));
+
+}, []);
+
+const addProduct = () => {
+  if (!newProduct.name || !newProduct.description || !newProduct.price) {
+    alert("Preencha todos os campos antes de salvar!");
+    return;
+  }
+    const productToSend = {
+    ...newProduct,
+    price: parseFloat(newProduct.price)
   };
+
+
+  axios.post("http://localhost:3322/cadastro", productToSend)
+    .then(() => axios.get("http://localhost:3322/"))
+    .then(res => {
+      setProducts(res.data.products);
+      setShowForm(false);
+      setNewProduct({ name: "", description: "", price: "" });
+    })
+    .catch(err => console.error("Erro ao cadastrar:", err));
+};
+
+
+
+const deleteProduct = (id) => {
+  axios.delete(`http://localhost:3322/deletar/${id}`).then(() => {
+    setProducts(products.filter(p => p.id !== id));
+  }).catch(err => console.error("Erro ao deletar produto:", err));
+};
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
 
   return (
@@ -157,27 +186,69 @@ function Home() {
         </div>
 
         <div className="othersconteiner">
+          
+  <input
+        type="text"
+        placeholder="Pesquisar produto..."
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
+        style={{ marginBottom: "20px", padding: "8px", width: "300px" }}
+      />
 
- <div className="row">
-      {products.map((product) => (
-        <div className="column" key={product.id}>
-          <div className="card">
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
+
+      <div className="row">
+        {filteredProducts.map(product => (
+          <div className="column" key={product.id}>
+            <div className="card">
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p>R${product.price}</p>
+              <button onClick={() => deleteProduct(product.id)}>Excluir</button>
+            </div>
+          </div>
+        ))}
+
+        {/* Card para adicionar */}
+        <div className="column">
+          <div className="card add-card" onClick={() => setShowForm(true)}>
+            +
           </div>
         </div>
-      ))}
-
-      {/* Card especial para adicionar */}
-      <div className="column">
-        <div className="card add-card" onClick={addProduct}>
-          +
-        </div>
       </div>
-    </div>
 
+      {/* Formulário modal */}
+      {showForm && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Adicionar Produto</h2>
+            <input
+              type="text"
+              placeholder="Nome do produto"
+              value={newProduct.name}
+              onChange={e => setNewProduct({ ... newProduct, name: e.target.value})}
+            />
+            <input
+              type="text"
+              placeholder="Descrição do produto"
+              value={newProduct.description}
+              onChange={e => setNewProduct({ ...newProduct, description: e.target.value})}
+            />
+            <input 
+               type="number" 
+                placeholder="Preço" 
+               value={newProduct.price} 
+               onChange={e => setNewProduct({ ...newProduct, price: e.target.value === "" ? "" : parseFloat(e.target.value) 
+                })} 
+                />
 
+            <button onClick={addProduct}>Salvar</button>
+            <button onClick={() => setShowForm(false)}>Cancelar</button>
+          </div>
         </div>
+      )}
+
+
+    </div>
 
         <div className="othersconteiner"></div>
         <div className="othersconteiner"></div>

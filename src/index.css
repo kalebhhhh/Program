@@ -12,4 +12,8 @@ body{
   min-height: 100vh;
   width: 100vw;
   background-color: whitesmoke;
+  zoom: 100%;
+  transform: scale(1);
+  transform-origin: 0 0;
+
 }
