@@ -13,12 +13,15 @@ import axios from "axios";
 function Home() {
 
 const [searchTerm, setSearchTerm] = useState("");
+const [newEstoque, setNewEstoque] = useState("");
 const [products, setProducts] = useState([]);
+const [showEstoqueForm, setShowEstoqueForm] = useState(null);
 const [showForm, setShowForm] = useState(false);
 const [newProduct, setNewProduct] = useState ({
   name: "",
   description: "",
-  price: ""
+  price: "",
+  estoque: ""
 });
 
 useEffect(() => {
@@ -29,7 +32,7 @@ useEffect(() => {
 }, []);
 
 const addProduct = () => {
-  if (!newProduct.name || !newProduct.description || !newProduct.price) {
+  if (!newProduct.name || !newProduct.estoque || !newProduct.description || !newProduct.price) {
     alert("Preencha todos os campos antes de salvar!");
     return;
   }
@@ -37,18 +40,30 @@ const addProduct = () => {
     ...newProduct,
     price: parseFloat(newProduct.price)
   };
+    const estoqueToSend = {
+      ...newProduct, estoque: parseFloat(newProduct.estoque)
+    };
 
 
-  axios.post("http://localhost:3322/cadastro", productToSend)
+  axios.post("http://localhost:3322/cadastro", productToSend, estoqueToSend)
     .then(() => axios.get("http://localhost:3322/"))
     .then(res => {
       setProducts(res.data.products);
       setShowForm(false);
-      setNewProduct({ name: "", description: "", price: "" });
+      setNewProduct({ name: "", description: "", price: "", estoque: ""});
     })
     .catch(err => console.error("Erro ao cadastrar:", err));
 };
 
+const updateEstoque = (id, novoEstoque) => {
+  axios.patch(`http://localhost:3322/atualizar/${id}`, {
+    estoque: novoEstoque
+  })
+  .then(res => {
+    setProducts(res.data.products);
+  })
+  .catch(err => console.error("Erro ao atualizar estoque:", err));
+};
 
 
 const deleteProduct = (id) => {
@@ -203,6 +218,26 @@ const deleteProduct = (id) => {
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <p>R${product.price}</p>
+              <p>Qtd: {product.estoque}</p>
+              <button onClick={() => setShowEstoqueForm(product.id)}>➕ Estoque</button>
+
+          {showEstoqueForm === product.id && (
+                    <div className="estoque-form">
+                      <input
+                        type="number"
+                        placeholder="Novo estoque"
+                        value={newEstoque}
+                        onChange={e => setNewEstoque(e.target.value)}
+                      />
+                      <button onClick={() => updateEstoque(product.id, parseInt(newEstoque))}>
+                        Salvar
+                      </button>
+                      <button onClick={() => setShowEstoqueForm(null)}>Cancelar</button>
+                    </div>
+                  )}
+
+
+              
               <button onClick={() => deleteProduct(product.id)}>Excluir</button>
             </div>
           </div>
@@ -240,6 +275,12 @@ const deleteProduct = (id) => {
                onChange={e => setNewProduct({ ...newProduct, price: e.target.value === "" ? "" : parseFloat(e.target.value) 
                 })} 
                 />
+              <input type="number" 
+              placeholder="Estoque"
+              value={newProduct.estoque}
+              onChange={e => setNewProduct({ ...newProduct, estoque: e.target.value === "" ? "" : parseFloat(e.target.value)
+              })}
+              />
 
             <button onClick={addProduct}>Salvar</button>
             <button onClick={() => setShowForm(false)}>Cancelar</button>
