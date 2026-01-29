@@ -215,11 +215,17 @@ const deleteProduct = (id) => {
         {filteredProducts.map(product => (
           <div className="column" key={product.id}>
             <div className="card">
+              <div className="cardImg">
+
+              </div>
+
+            <div className="infoProducts">
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <p>R${product.price}</p>
               <p>Qtd: {product.estoque}</p>
               <button onClick={() => setShowEstoqueForm(product.id)}>➕ Estoque</button>
+            </div>
 
           {showEstoqueForm === product.id && (
                     <div className="estoque-form">

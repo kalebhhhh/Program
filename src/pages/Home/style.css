@@ -93,25 +93,29 @@
 .row {
     display: flex;
     flex-wrap: wrap;
-    width: 1507px;
+    width: 1744px;
     align-items: center;
-    padding-left: 115px;
+    border: 1px solid;
+    flex-direction: row;
 }
 
 .column {
     box-sizing: border-box;
-    padding: 16px;
+    padding: 6px;
 }
 
 .card {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  padding: 16px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  width: 200px;
-  height: 160px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: transform 0.3s ease;
+    width: 423px;
+    height: 189px;
 }
 
 .add-card {
@@ -128,6 +132,63 @@
 .add-card:hover {
   background-color: #ddd;
 }
+
+
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.cardImg {
+    width: 205px;
+    height: 150px;
+    border-radius: 30px;
+    background-color: #102b38;
+    border: 4px solid #ffffff00;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: -3px;
+}
+
+.infoProducts{
+  padding-left: 13px;
+}
+.infoProducts h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.infoProducts p {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0;
+}
+
+button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff85c1;
+}
+
+.estoque-form {
+  margin-top: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
 
 @media screen and (max-width: 600px) {
   .column {
