@@ -1,0 +1,8 @@
+app.listen(8081,function(){
+    console.log("Running server")
+});
+
+setando conexão servidor porta 8081, criando um objeto (app) 
+e atribuindo a ele as funcões do framework express()
+
+rotas express
