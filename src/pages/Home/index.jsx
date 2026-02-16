@@ -1,86 +1,182 @@
 import { useState, useRef, useEffect } from 'react'
 import './style.css'
+import './editstyles.css'
 import IconsProduct from './icos/caixa.png';
 import IconsPedido from './icos/adicionar-produto.png';
 import IconsBar from './icos/bar-chart.png';
 import IconsUser from './icos/multiple-users-silhouette.png'
 import IconConfig from './icos/config.com.png'
+import IcoDelete from './icos/deleteico2.png'
 import './carousels.css'
 import axios from "axios";
 
 
 
 function Home() {
-
+// Estados
 const [searchTerm, setSearchTerm] = useState("");
-const [newEstoque, setNewEstoque] = useState("");
 const [products, setProducts] = useState([]);
 const [showEstoqueForm, setShowEstoqueForm] = useState(null);
 const [showForm, setShowForm] = useState(false);
-const [newProduct, setNewProduct] = useState ({
+const [showImageForm, setShowImageForm] = useState(null);
+const [newProduct, setNewProduct] = useState({
   name: "",
   description: "",
   price: "",
-  estoque: ""
+  estoque: "",
+  imageFile: null
 });
 
+// Carregar produtos
 useEffect(() => {
   axios.get("http://localhost:3322/")
-  .then(res => setProducts(res.data.products))
-  .catch(err => console.error("Erro ao carregar produto", err));
-
+    .then(res => setProducts(res.data.products))
+    .catch(err => console.error("Erro ao carregar produto", err));
 }, []);
 
-const addProduct = () => {
+// Cadastrar 
+const addProduct = async () => {
   if (!newProduct.name || !newProduct.estoque || !newProduct.description || !newProduct.price) {
     alert("Preencha todos os campos antes de salvar!");
     return;
   }
-    const productToSend = {
-    ...newProduct,
-    price: parseFloat(newProduct.price)
-  };
-    const estoqueToSend = {
-      ...newProduct, estoque: parseFloat(newProduct.estoque)
-    };
 
+  const formData = new FormData();
+  formData.append("name", newProduct.name);
+  formData.append("description", newProduct.description);
+  formData.append("price", parseFloat(newProduct.price));
+  formData.append("estoque", parseFloat(newProduct.estoque));
 
-  axios.post("http://localhost:3322/cadastro", productToSend, estoqueToSend)
-    .then(() => axios.get("http://localhost:3322/"))
-    .then(res => {
-      setProducts(res.data.products);
-      setShowForm(false);
-      setNewProduct({ name: "", description: "", price: "", estoque: ""});
-    })
-    .catch(err => console.error("Erro ao cadastrar:", err));
-};
+  if (newProduct.imageFile) {
+    formData.append("image", newProduct.imageFile);
+  }
 
-const updateEstoque = (id, novoEstoque) => {
-  axios.patch(`http://localhost:3322/atualizar/${id}`, {
-    estoque: novoEstoque
-  })
-  .then(res => {
+  try {
+    await axios.post("http://localhost:3322/cadastro", formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+
+    const res = await axios.get("http://localhost:3322/");
     setProducts(res.data.products);
-  })
-  .catch(err => console.error("Erro ao atualizar estoque:", err));
+    setShowForm(false);
+    setNewProduct({ name: "", description: "", price: "", estoque: "", imageFile: null });
+  } catch (err) {
+    console.error("Erro ao cadastrar:", err);
+  }
 };
 
+// Atualizar img
+const updateImage = async (id) => {
+  if (!newProduct.imageFile) {
+    alert("Selecione ou pesquise uma imagem antes de salvar!");
+    return;
+  }
 
-const deleteProduct = (id) => {
-  axios.delete(`http://localhost:3322/deletar/${id}`).then(() => {
-    setProducts(products.filter(p => p.id !== id));
-  }).catch(err => console.error("Erro ao deletar produto:", err));
+  const formData = new FormData();
+  formData.append("image", newProduct.imageFile);
+
+  console.log("Enviando arquivo:", newProduct.imageFile);
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:3322/atualizar-imagem/${id}`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+
+    setProducts(res.data.products);
+    setShowImageForm(null);
+    setNewProduct({ ...newProduct, imageFile: null });
+  } catch (err) {
+    console.error("Erro ao atualizar imagem:", err);
+  }
 };
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+// pesquisa teste
+const [imageSearchTerm, setImageSearchTerm] = useState("");
+const [searchResults, setSearchResults] = useState([]);
+
+const searchImages = async () => {
+  try {
+    const res = await axios.get("http://localhost:3322/search-images", {
+      params: { q: imageSearchTerm }
+    });
+    setSearchResults(res.data);
+  } catch (err) {
+    console.error("Erro ao buscar imagens:", err);
+  }
+};
+
+ // atualizar produt
+const updateProduct = async (id) => {
+  const formData = new FormData();
+  formData.append("name", newProduct.name);
+  formData.append("description", newProduct.description);
+  formData.append("price", parseFloat(newProduct.price));
+  formData.append("estoque", parseFloat(newProduct.estoque));
+
+  if (newProduct.imageFile) {
+    formData.append("image", newProduct.imageFile);
+  }
+
+  try {
+    const res = await axios.patch(`http://localhost:3322/atualizar/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+    setProducts(res.data.products);
+    setShowEstoqueForm(null);
+    setNewProduct({ name: "", description: "", price: "", estoque: "", imageFile: null });
+  } catch (err) {
+    console.error("Erro ao atualizar produto:", err);
+  }
+};
+// baixar texte
+const handleSelectImage = async (imageUrl) => {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    // cria um objeto File com nome e tipo
+    const fileName = `google-${Date.now()}.jpg`; 
+    const file = new File([blob], fileName, { type: blob.type });
+
+    setNewProduct({ ...newProduct, imageFile: file });
+    console.log("Imagem selecionada:", file);
+  } catch (err) {
+    console.error("Erro ao baixar imagem:", err);
+  }
+};
+// usar img
+const usarImagem = async (id, imageUrl) => {
+  try {
+    const res = await axios.post(`http://localhost:3322/baixar-imagem/${id}`, { imageUrl });
+    setProducts(res.data.products); // atualiza lista após salvar
+    setShowImageForm(null);         // fecha o formulário
+  } catch (err) {
+    console.error("Erro ao usar imagem:", err);
+  }
+};
+
+// Deletar produto
+  function deleteProduct(id) {
+    axios.delete(`http://localhost:3322/deletar/${id}`)
+      .then(() => {
+        setProducts(products.filter(p => p.id !== id));
+      })
+      .catch(err => console.error("Erro ao deletar produto:", err));
+  }
+
+// Filtrar produtos
+const filteredProducts = products.filter(product =>
+  product.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="wrapper">
       <div className="menusLeft">
         <div className="backgroundMENU">
-          <div className="menuICO" style={{ backgroundColor: "rgb(30 44 59 / 42%)", marginRight: "9px" }}>
+          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "230px"}}>
             <img src={IconsProduct} alt="Produto" width="40px" style={{ marginLeft: "4px" }} />
             <span className="menu-text">Produtos</span>
           </div>
@@ -216,35 +312,150 @@ const deleteProduct = (id) => {
           <div className="column" key={product.id}>
             <div className="card">
               <div className="cardImg">
+  {product.image ? (
+    <img
+      style={{ width: "100%", height: "100%", borderRadius: "26px"}}
+      src={`http://localhost:3322/uploads/imgProducts/${product.image}`}
+      alt={product.name}
+    />
+  ) : (
+    <span>Sem imagem</span>
+  )}
 
-              </div>
+  <button onClick={() => setShowImageForm(product.id)}>
+    📷 Alterar imagem
+  </button>
 
+  {showImageForm === product.id && (
+    <div className="image-form">
+      <h3>Enviar nova imagem</h3>
+
+      {/* Aba de pesquisa */}
+      <input style={{ marginLeft: "21px", marginTop: "4px", height: "32px"}}
+        type="text"
+        placeholder="Pesquisar no Google Imagens..."
+        value={imageSearchTerm}
+        onChange={e => setImageSearchTerm(e.target.value)}
+      />
+      <button style={{width: "91px", height: "32px"}} onClick={searchImages}>🔍 Pesquisar</button>
+
+      {/* Resultados da pesquisa */}
+      <div className="search-results">
+        {searchResults.map((img, index) => (
+          <div key={index} className="search-card">
+            <img
+              src={img.thumbnail}
+              alt={img.title}
+              style={{ width: "120px", borderRadius: "8px" }}
+            />
+            <button onClick={() => usarImagem(product.id, img.original)}>
+              Usar esta imagem
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Upload manual */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={e =>
+          setNewProduct({ ...newProduct, imageFile: e.target.files[0] })
+        }
+      />
+
+      <div className="form-buttons">
+        <button style={{marginTop: "-7px", position: "fixed", marginLeft: "94px"}} onClick={() => updateImage(product.id)}>Salvar imagem</button>
+        <button onClick={() => setShowImageForm(null)}>Cancelar</button>
+      </div>
+    </div>
+  )}
+</div>
             <div className="infoProducts">
               <h3>{product.name}</h3>
               <p>{product.description}</p>
-              <p>R${product.price}</p>
-              <p>Qtd: {product.estoque}</p>
-              <button onClick={() => setShowEstoqueForm(product.id)}>➕ Estoque</button>
+              <div className='price1'>R${product.price}</div>
+              <div className='stock1'>Estoque: {product.estoque}</div>
+              <button className="buttonSTOC" onClick={() => {
+    setShowEstoqueForm(product.id);
+    setNewProduct({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      estoque: product.estoque,
+      imageFile: null
+    });
+  }}
+>Editar</button>
+              <div className="infoTooltip">
+    <h4>{product.name}</h4>
+    <p>{product.description}</p>
+  </div>
             </div>
+            
 
-          {showEstoqueForm === product.id && (
-                    <div className="estoque-form">
-                      <input
-                        type="number"
-                        placeholder="Novo estoque"
-                        value={newEstoque}
-                        onChange={e => setNewEstoque(e.target.value)}
-                      />
-                      <button onClick={() => updateEstoque(product.id, parseInt(newEstoque))}>
-                        Salvar
-                      </button>
-                      <button onClick={() => setShowEstoqueForm(null)}>Cancelar</button>
-                    </div>
-                  )}
+            
+
+{showEstoqueForm === product.id && (
+  <div className="estoque-form">
+    <h3>Editar Produto</h3>
+
+    <label>Nome</label>
+    <input
+      type="text"
+      value={newProduct.name}
+      onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
+    />
+
+    <label>Preço</label>
+    <input
+      type="number"
+      value={newProduct.price}
+      onChange={e => setNewProduct({ ...newProduct, price: e.target.value })}
+    />
+
+    <label>Descrição</label>
+    <textarea
+      value={newProduct.description}
+      onChange={e => setNewProduct({ ...newProduct, description: e.target.value })}
+    />
+
+    <label>Estoque</label>
+    <input
+      type="number"
+      value={newProduct.estoque}
+      onChange={e => setNewProduct({ ...newProduct, estoque: e.target.value })}
+    />
+
+    <div className="form-buttons">
+      <button
+        className="btn-save"
+        onClick={() =>
+          updateProduct(
+            product.id,
+            parseInt(newProduct.estoque),
+            newProduct.name,
+            parseFloat(newProduct.price),
+            newProduct.description
+          )
+        }
+      >
+        💾 Salvar
+      </button>
+      <button className="btn-cancel" onClick={() => setShowEstoqueForm(null)}>
+        ❌ Cancelar
+      </button>
+    </div>
+  </div>
+)}
+
+
 
 
               
-              <button onClick={() => deleteProduct(product.id)}>Excluir</button>
+              <button className="buttonDEL" onClick={() => deleteProduct(product.id)}>
+                <img className="imgdel" src={IcoDelete} alt="" />
+              </button>
             </div>
           </div>
         ))}
@@ -300,6 +511,7 @@ const deleteProduct = (id) => {
         <div className="othersconteiner"></div>
         <div className="othersconteiner"></div>
       </div>
+      <div className='menusRight'></div>
     </div>
   )
 }
