@@ -176,7 +176,7 @@ const filteredProducts = products.filter(product =>
     <div className="wrapper">
       <div className="menusLeft">
         <div className="backgroundMENU">
-          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "230px"}}>
+          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "100%"}}>
             <img src={IconsProduct} alt="Produto" width="40px" style={{ marginLeft: "4px" }} />
             <span className="menu-text">Produtos</span>
           </div>
@@ -303,7 +303,7 @@ const filteredProducts = products.filter(product =>
         placeholder="Pesquisar produto..."
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-        style={{ marginBottom: "20px", padding: "8px", width: "300px" }}
+        style={{ marginBottom: "20px", padding: "8px", width: "300px",marginLeft: "44%"}}
       />
 
 
