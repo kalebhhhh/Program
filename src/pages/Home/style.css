@@ -1,8 +1,9 @@
 .menusLeft {
-    position: sticky;       /* fixa na lateral */
+    position: sticky; 
+    flex-shrink: 0;      
     top: 0;
     left: 0;
-    width: 75px;        
+    width: 4.1%;        
     height: 100vh;       
     background: #c7c7c7;
     align-items: flex-start;
@@ -12,12 +13,13 @@
     overflow: hidden;
 }
 .menusRight {
-    position: sticky;       /* fixa na lateral */
+    position: sticky;    
+    flex-shrink: 0;
     top: 0;
     left: 0;
-    width: 75px;        
+    width: 20%;       
     height: 100vh;       
-    background: #c7c7c7;
+    background: #22282c;
     align-items: flex-start;
     transition: width 0.6s ease-in-out, background 0.4s;
     z-index: 1000;
@@ -26,20 +28,29 @@
 }
 
 .wrapper {
-    position: fixed;
+    position: relative;
     left: 0;
     top: 0;
     display: flex;
+    width: 100%;
+    min-height:100vh;
 }
-
-
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .menusLeft, .menusRight {
+    width: 100%;
+    position: static;
+  }
+}
 .menusLeft:hover {
-    width: 250px;         
+    width: 15.8%;         
 }
 
 .backgroundMENU {
-    background-color: #273339;
-    padding: 20px 8px;
+    background-color: #22282c;
+    padding: 20px 10%;
     box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.6),
                 inset 0px 0px 3px rgb(18 50 58);
     display: flex;
@@ -64,7 +75,7 @@
 .menuICO:hover{
   background-color: rgb(77, 86, 99);
     transition: 1s;
-    width: 108%;
+    width: 100%;
     
 }
 .menu-text {
@@ -84,16 +95,23 @@
 }
 .containers{
     display: flex;
+    max-width: 100%;
+    overflow: hidden;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
     align-content: center;
     flex-wrap: wrap;
     height: 100%;
-    width: 78%;
+    width: auto !important;
     background-color: #f7f7f7;
     flex-direction: column;
 }
 
 .carousels {
     position: relative;
+    max-width: 100%;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,11 +123,11 @@
 .row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
     align-content: center;
     flex-direction: row;
     align-self: center;
-    padding-left: 40px;
 }
 
 .column {
