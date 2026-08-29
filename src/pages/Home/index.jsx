@@ -149,7 +149,7 @@ const selectedProduct = products.find(product => product.id === selectedProductI
     <div className="wrapper">
       <div className="menusLeft">
         <div className="backgroundMENU">
-          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "100%"}}>
+          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "230px"}}>
             <img src={IconsProduct} alt="Produto" width="40px" style={{ marginLeft: "4px" }} />
             <span className="menu-text">Produtos</span>
           </div>
@@ -180,8 +180,7 @@ const selectedProduct = products.find(product => product.id === selectedProductI
         placeholder="Pesquisar produto..."
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
-className="product-search"
-        style={{ marginBottom: "20px", padding: "8px", width: "300px", marginLeft: "44%" }}
+        className="product-search"
       />
 
       <div className="filters" aria-label="Filtros de produtos">

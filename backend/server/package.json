@@ -3,7 +3,6 @@
     "@ljharb/tsconfig": "^0.3.2",
     "axios": "^1.13.4",
     "body-parser": "^2.2.2",
-    "busboy": "^1.6.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "multer": "^2.0.2",
