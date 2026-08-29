@@ -15,6 +15,12 @@ const Products = db.sequelize.define("products",{
         type: db.Sequelize.TEXT,
     },
 
+    categoria: {
+        type: db.Sequelize.STRING,
+        allowNull: true,
+        defaultValue: ""
+    },
+
     estoque: {
         type: db.Sequelize.DOUBLE,
         allowNull: false,
@@ -27,6 +33,6 @@ const Products = db.sequelize.define("products",{
 
 });
 
-Products.sync({force: false});
+Products.sync({ alter: true });
 
 module.exports = Products;
