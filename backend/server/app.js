@@ -129,6 +129,7 @@ aplic.post("/cadastro", upload.single("image") ,async (req, res) => {
       price: req.body.price,
       description: req.body.description,
       estoque: req.body.estoque,
+      categoria: req.body.categoria || "",
       image: imagePath
     });
 
@@ -149,16 +150,18 @@ aplic.get("/", (req, res) => {
 // Atualizar
 aplic.patch("/atualizar/:id", upload.single("image"), async (req, res) => {
   try {
-    const imagePath = req.file ? req.file.filename : null;
+    const updateData = {
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      estoque: req.body.estoque,
+      categoria: req.body.categoria || ""
+    };
+
+    if (req.file) updateData.image = req.file.filename;
 
     await Products.update(
-      {
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        estoque: req.body.estoque,
-        image: imagePath
-      },
+      updateData,
       { where: { id: req.params.id } }
     );
     const products = await Products.findAll();

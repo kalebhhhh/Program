@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 75px;        
-    height: 100vh;       
+    height: 100vw;       
     background: #c7c7c7;
     align-items: flex-start;
     transition: width 0.6s ease-in-out, background 0.4s;
@@ -46,7 +46,7 @@
     flex-direction: column;
     justify-content: center;   
     align-items: flex-start;
-    height: 100%;             
+    height: 379px !important;             
 }
 
 
@@ -315,6 +315,801 @@ button:hover {
   }
 }
 
+/* Layout responsivo da vitrine */
+:root {
+  --ink: #17232b;
+  --muted: #6d7b83;
+  --surface: #ffffff;
+  --canvas: #f3f6f5;
+  --accent: #0f766e;
+  --accent-light: #d9f2ed;
+  --line: #dfe8e5;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background: var(--canvas);
+}
+
+.menusLeft {
+  position: sticky;
+  flex: 0 0 76px;
+  width: 76px;
+  height: 100vh;
+  background: #142b30;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  transition: flex-basis 0.25s ease, width 0.25s ease;
+}
+
+.menusLeft:hover {
+  flex-basis: 232px;
+  width: 232px;
+}
+
+.backgroundMENU {
+  height: 379px !important;
+  padding: 24px 10px;
+  background: linear-gradient(180deg, #18383d 0%, #11282d 100%);
+  box-shadow: none;
+}
+
+.menuICO {
+  width: 100%;
+  height: 54px;
+  margin-bottom: 8px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  color: #d5e4e3;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.menuICO[style] {
+  background: #0000004d !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+.menuICO:hover {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(159, 220, 209, 0.22);
+  transform: translateX(2px);
+}
+
+.menu-text {
+  margin-left: 15px !important;
+  color: inherit;
+  font-size: 14px;
+  opacity: 0;
+}
+
+.menusLeft:hover .menu-text {
+  width: auto;
+  opacity: 1;
+}
+
+.containers {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  min-height: 100vh;
+  height: auto;
+  padding: 34px clamp(18px, 4vw, 64px) 56px;
+  background: radial-gradient(circle at 90% 0%, #e1f1ec 0, transparent 34%), var(--canvas);
+}
+
+.carousels {
+  width: min(100%, 1120px);
+  margin: 0 auto 28px;
+  padding: 0;
+}
+
+.othersconteiner {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.product-search {
+  display: block;
+  width: min(100%, 360px);
+  margin: 0 0 24px;
+  padding: 13px 17px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  box-shadow: 0 8px 24px rgba(27, 57, 55, 0.06);
+}
+
+.product-search:focus {
+  outline: 3px solid rgba(15, 118, 110, 0.16);
+  border-color: var(--accent);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: -8px 0 24px;
+}
+
+.filters select {
+  min-width: 150px;
+  padding: 10px 30px 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filters select:focus {
+  outline: 2px solid #bde5dc;
+  border-color: var(--accent);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  gap: 18px;
+  width: 100%;
+  padding: 0;
+}
+
+.column {
+  min-width: 0;
+  padding: 0;
+}
+
+.card {
+  width: 100%;
+  min-height: 164px;
+  height: auto;
+  margin: 0;
+  padding: 10px;
+  gap: 12px;
+  border: 1px solid rgba(220, 231, 227, 0.9);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 10px 28px rgba(27, 57, 55, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(27, 57, 55, 0.13);
+}
+
+.cardImg {
+  flex: 0 0 132px;
+  width: 132px;
+  height: 142px;
+  border: 0;
+  border-radius: 13px;
+  overflow: hidden;
+  background: var(--accent-light);
+}
+
+.cardImg > img {
+  object-fit: cover;
+}
+
+.infoProducts {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 4px 4px 4px 0;
+}
+
+.infoProducts h3 {
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.category-badge {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 6px;
+  padding: 4px 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eef2f1;
+  color: #527078;
+  font-size: 10px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.infoProducts p {
+  position: static;
+  width: 100%;
+  color: var(--muted);
+}
+
+.price1 {
+  color: var(--accent) !important;
+  font-weight: 800;
+}
+
+.stock1 {
+  position: static;
+  display: inline-block;
+  width: auto;
+  margin: 8px 0 0;
+  padding: 4px 8px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.add-card {
+  min-height: 164px;
+  color: var(--accent);
+  border: 2px dashed #9acfc4;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 38px;
+}
+
+.menusRight {
+  display: block;
+  flex: 0 0 0;
+  width: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+  border-left: 1px solid var(--line);
+  transition: flex-basis 0.25s ease, width 0.25s ease;
+}
+
+.menusRight-open {
+  flex-basis: 340px;
+  width: 340px;
+}
+
+.price1 {
+  position: static;
+  margin: 8px 0 0;
+  font-size: 16px;
+}
+
+.stock1 {
+  position: static;
+  margin: 8px 0 0;
+}
+
+.buttonDEL,
+.buttonSTOC {
+  position: absolute;
+  display: none;
+}
+
+.cardImg button {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: calc(100% - 20px);
+  padding: 6px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(20, 43, 48, 0.86);
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.card-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14), 0 12px 28px rgba(27, 57, 55, 0.1);
+}
+
+.card .price1,
+.card .stock1 {
+  position: static;
+  margin-left: 0;
+  margin-top: 8px;
+}
+
+.card .price1 { color: var(--accent); }
+
+.card .stock1 {
+  width: auto;
+  font-size: 11px;
+}
+
+.card .buttonDEL {
+  right: 10px;
+  bottom: 10px;
+  margin: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.card .imgdel {
+  position: static;
+  width: 18px;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .wrapper {
+    display: block;
+    padding-bottom: 72px;
+  }
+
+  .menusLeft {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    flex-basis: auto;
+    z-index: 1000;
+  }
+
+  .menusLeft:hover {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .menusRight {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 64px;
+    width: min(92vw, 340px);
+    min-height: 0;
+    z-index: 1100;
+    box-shadow: -12px 0 30px rgba(20, 43, 48, 0.16);
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+
+  .menusRight-open {
+    flex-basis: 0;
+    width: min(92vw, 340px);
+    transform: translateX(0);
+  }
+
+  .backgroundMENU {
+    display: flex;
+    height: 379px !important;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px;
+  }
+
+  .menuICO,
+  .menuICO[style] {
+    width: auto !important;
+    height: 52px;
+    margin: 0 !important;
+    padding: 6px 10px;
+  }
+
+  .menuICO img {
+    margin: 0 !important;
+    width: 25px !important;
+    height: 25px;
+    object-fit: contain;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .filters select {
+    width: 100%;
+  }
+
+  .containers {
+    min-height: calc(100vh - 64px);
+    padding: 20px 14px 30px;
+  }
+
+  .carousel__slide figcaption {
+    display: none;
+  }
+
+  .carousel__thumbnails li {
+    margin: 0 4px;
+  }
+
+  .card {
+    min-height: 145px;
+  }
+
+  .cardImg {
+    flex-basis: 108px;
+    width: 108px;
+    height: 124px;
+  }
+}
+
+/* Posicionamento independente do scroll da pagina. */
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+.wrapper {
+  position: static !important;
+  min-height: 100dvh;
+}
+
+.menusLeft {
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  width: 76px !important;
+  height: 100dvh !important;
+  z-index: 1200 !important;
+  transform: none !important;
+}
+
+.menusLeft:hover {
+  width: 216px !important;
+}
+
+.backgroundMENU {
+    width: 100% !important;
+    height: 379px !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    padding: 11px 11px 10px;
+    overflow-x: hidden !important;
+    justify-content: flex-start !important;
+}
+
+.menusRight {
+  position: fixed !important;
+  inset: 0 0 0 auto !important;
+  width: 350px !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  align-items: center !important;
+  overflow-y: auto !important;
+  z-index: 1150 !important;
+  transform: none;
+}
+
+.details-panel,
+.details-empty {
+  box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+  .menusLeft,
+  .menusLeft:hover {
+    inset: 0 0 auto 0 !important;
+    width: 100% !important;
+    height: 64px !important;
+  }
+
+  .backgroundMENU {
+    height: 379px !important;
+    min-height: 64px !important;
+    overflow: hidden !important;
+    justify-content: space-around !important;
+  }
+
+  .wrapper {
+    padding-top: 64px;
+  }
+
+  .containers {
+    padding-top: 20px;
+  }
+
+  .menusRight,
+  .menusRight-open {
+    inset: 64px 0 0 auto !important;
+    width: min(92vw, 350px) !important;
+    height: auto !important;
+    transform: translateX(100%);
+  }
+
+  .menusRight-open {
+    transform: translateX(0);
+  }
+}
+
+/* Override final: menus ancorados na viewport, nunca no conteudo rolavel. */
+html,
+body,
+#root {
+  min-height: 100%;
+  transform: none !important;
+  filter: none !important;
+}
+
+.wrapper {
+  position: static !important;
+  min-height: 100dvh !important;
+  transform: none !important;
+}
+
+.menusLeft {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: 0 !important;
+  width: 76px !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
+.menusLeft:hover {
+  width: 216px !important;
+}
+
+.backgroundMENU {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: safe center !important;
+  height: 379px !important;
+  max-height: 100dvh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.menusRight {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  bottom: 0 !important;
+  width: 350px !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.containers {
+  margin-left: 76px !important;
+  margin-right: 350px !important;
+}
+
+@media (max-width: 700px) {
+  .menusLeft,
+  .menusLeft:hover {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: 64px !important;
+    max-height: 64px !important;
+  }
+
+  .backgroundMENU {
+    height: 379px !important;
+    max-height: 64px !important;
+    overflow: hidden !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+  }
+
+  .wrapper {
+    padding-top: 64px !important;
+  }
+
+  .containers {
+    margin: 0 !important;
+  }
+
+  .menusRight,
+  .menusRight-open {
+    top: 64px !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: min(92vw, 350px) !important;
+    height: auto !important;
+    max-height: none !important;
+    transform: translateX(100%);
+  }
+
+  .menusRight-open {
+    transform: translateX(0);
+  }
+}
+
+/* Ultima camada de layout: os menus nunca dependem da altura do wrapper. */
+.menusLeft {
+  position: fixed !important;
+  top: 0 !important;
+  right: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1200 !important;
+  width: 76px !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.menusLeft:hover {
+  width: 216px !important;
+}
+
+.backgroundMENU {
+  width: 100%;
+  height: 379px !important;
+  min-height: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  justify-content: flex-start;
+}
+
+.menusRight {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  z-index: 1150 !important;
+  width: 350px !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.details-panel {
+  min-height: 100dvh;
+}
+
+@media (max-width: 700px) {
+  .menusLeft,
+  .menusLeft:hover {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 64px !important;
+    overflow: hidden !important;
+  }
+
+  .backgroundMENU {
+    height: 379px !important;
+    overflow: hidden;
+  }
+
+  .containers {
+    padding-top: 20px;
+  }
+
+  .menusRight,
+  .menusRight-open {
+    top: 64px !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: min(92vw, 350px) !important;
+    height: auto !important;
+    transform: translateX(100%);
+  }
+
+  .menusRight-open {
+    transform: translateX(0);
+  }
+}
+
+/* Navegacao compacta no desktop e fixa no topo em telas pequenas. */
+.menusLeft {
+  width: 76px;
+  transition: width 0.22s ease;
+}
+
+.menusLeft:hover {
+  width: 216px;
+}
+
+.backgroundMENU {
+  align-items: flex-start;
+}
+
+.menuICO,
+.menuICO[style] {
+  width: 100% !important;
+}
+
+.menu-text,
+.menusLeft:hover .menu-text {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  margin-left: 0 !important;
+  opacity: 0;
+  transition: width 0.22s ease, opacity 0.18s ease, margin-left 0.22s ease;
+}
+
+.menusLeft:hover .menu-text {
+  width: 140px;
+  margin-left: 14px !important;
+  opacity: 1;
+}
+
+.containers {
+  margin-left: 76px;
+}
+
+.menusRight {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 350px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 700px) {
+  .wrapper {
+    padding-top: 64px;
+    padding-bottom: 0;
+  }
+
+  .menusLeft,
+  .menusLeft:hover {
+    inset: 0 0 auto;
+    width: 100%;
+    height: 64px;
+    transition: none;
+  }
+
+  .backgroundMENU {
+    align-items: center;
+  }
+
+  .menu-text,
+  .menusLeft:hover .menu-text {
+    display: none;
+  }
+
+  .containers {
+    margin: 0;
+    padding: 20px 14px 30px;
+  }
+
+  .menusRight {
+    top: 64px;
+    bottom: 0;
+    height: auto;
+  }
+}
+
 .modal {
   position: fixed; 
   top: 0;
@@ -423,4 +1218,278 @@ button:hover {
 }
 .othersconteiner{
     width: 100%;
+}
+
+/* Estrutura final: barras fixas e uma area central que rola sozinha. */
+:root {
+  --ink: #1d292d;
+  --muted: #718086;
+  --canvas: #f5f7f6;
+  --surface: #ffffff;
+  --nav: #293a4c;
+  --nav-soft: #234149;
+  --accent: #087f73;
+  --accent-soft: #dff3ee;
+  --line: #dce7e4;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+.wrapper {
+  display: block;
+  min-height: 100vh;
+  background: var(--canvas);
+}
+
+.menusLeft {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 1200;
+  width: 216px;
+  height: 100vh;
+  background: var(--nav);
+  border: 0;
+  box-shadow: 8px 0 24px rgba(23, 43, 49, 0.08);
+  transition: none;
+}
+
+.menusLeft:hover {
+  width: 216px;
+}
+
+.backgroundMENU {
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 28px 14px;
+  background: linear-gradient(180deg, #1d3840 0%, var(--nav) 100%);
+}
+
+.menuICO,
+.menuICO[style] {
+  width: 100% !important;
+  height: 52px;
+  margin: 0 !important;
+  padding: 8px 12px;
+  background: transparent !important;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.menuICO[style] {
+  background: #0000004d !important;
+}
+
+.menuICO:hover {
+  width: 100%;
+  background: var(--nav-soft) !important;
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: none;
+}
+
+.menuICO img {
+  flex: 0 0 28px;
+  width: 28px !important;
+  height: 28px;
+  margin: 0 !important;
+  object-fit: contain;
+}
+
+.menu-text,
+.menusLeft:hover .menu-text {
+  display: block;
+  width: auto;
+  margin-left: 14px !important;
+  opacity: 1;
+  color: #e3efed;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.containers {
+  width: auto;
+  min-height: 100vh;
+  margin: 0 350px 0 216px;
+  padding: 32px clamp(18px, 4vw, 64px) 56px;
+  background: radial-gradient(circle at 100% 0, #e5f2ee 0, transparent 28%), var(--canvas);
+}
+
+.othersconteiner {
+  width: min(100%, 1160px);
+  margin: 0 auto;
+}
+
+.menusRight {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 1150;
+  display: block;
+  width: 350px;
+  height: 100vh;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  box-shadow: -10px 0 26px rgba(23, 43, 49, 0.08);
+}
+
+.details-panel {
+  width: 350px;
+  min-height: 100vh;
+  padding: 30px 22px 40px;
+  background: var(--surface);
+}
+
+.details-empty {
+  width: 350px;
+  padding: 40px 24px;
+}
+
+.card {
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: 0 8px 22px rgba(23, 43, 49, 0.06);
+}
+
+.card:hover {
+  box-shadow: 0 12px 26px rgba(23, 43, 49, 0.1);
+}
+
+.cardImg {
+  background: var(--accent-soft);
+}
+
+.product-search,
+.filters select {
+  border-color: var(--line);
+  box-shadow: 0 6px 18px rgba(23, 43, 49, 0.04);
+}
+
+@media (max-width: 700px) {
+  .menusLeft {
+    inset: auto 0 0;
+    width: 100%;
+    height: 64px;
+  }
+
+  .menusLeft:hover {
+    width: 100%;
+  }
+
+  .backgroundMENU {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0;
+    padding: 6px;
+  }
+
+  .menuICO,
+  .menuICO[style] {
+    width: auto !important;
+    height: 52px;
+    padding: 8px 10px;
+  }
+
+  .menu-text,
+  .menusLeft:hover .menu-text {
+    display: none;
+  }
+
+  .containers {
+    min-height: calc(100vh - 64px);
+    margin: 0;
+    padding: 20px 14px 84px;
+  }
+
+  .menusRight {
+    inset: 0 0 64px auto;
+    width: min(92vw, 350px);
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+
+  .menusRight-open {
+    width: min(92vw, 350px);
+    transform: translateX(0);
+  }
+
+  .details-panel,
+  .details-empty {
+    width: min(92vw, 350px);
+    min-height: auto;
+  }
+}
+
+/* Regras finais: nenhum bloco legado pode alterar a altura dos menus. */
+.menusLeft {
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  z-index: 1200 !important;
+  width: 76px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.menusLeft:hover {
+  width: 216px !important;
+}
+
+.backgroundMENU {
+  width: 100% !important;
+  height: 379px !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  justify-content: flex-start !important;
+}
+
+.menusRight {
+  position: fixed !important;
+  inset: 0 0 0 auto !important;
+  z-index: 1150 !important;
+  width: 350px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.containers {
+  margin-left: 76px !important;
+  margin-right: 350px !important;
+}
+
+@media (max-width: 700px) {
+  .menusLeft,
+  .menusLeft:hover {
+    inset: 0 0 auto 0 !important;
+    width: 100% !important;
+    height: 64px !important;
+    overflow: hidden !important;
+  }
+
+  .backgroundMENU {
+    height: 379px !important;
+    overflow: hidden !important;
+  }
+
+  .containers {
+    margin: 0 !important;
+  }
+
+  .menusRight,
+  .menusRight-open {
+    inset: 64px 0 0 auto !important;
+    width: min(92vw, 350px) !important;
+    height: auto !important;
+    transform: translateX(100%);
+  }
+
+  .menusRight-open {
+    transform: translateX(0);
+  }
 }

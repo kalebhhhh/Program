@@ -72,3 +72,263 @@
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.details-panel {
+  width: 340px;
+  min-height: 100vh;
+  padding: 28px 22px;
+  background: #fff;
+  color: #17232b;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.details-kicker {
+  color: #0f766e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.details-header h2 {
+  margin-top: 5px;
+  font-size: 24px;
+}
+
+.panel-close {
+  border: 0;
+  background: #edf5f3;
+  color: #0f766e;
+  border-radius: 9px;
+  width: 32px;
+  height: 32px;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.details-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f3f8f7;
+  margin-bottom: 24px;
+}
+
+.details-preview img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.details-preview div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.details-preview strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.details-preview span {
+  color: #6d7b83;
+  font-size: 12px;
+}
+
+.details-form {
+  display: grid;
+  gap: 14px;
+}
+
+.details-form label {
+  display: grid;
+  gap: 6px;
+  color: #53636a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.details-form input,
+.details-form textarea {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #dfe8e5;
+  border-radius: 9px;
+  color: #17232b;
+  background: #fbfdfc;
+  font: inherit;
+  resize: vertical;
+}
+
+.details-form input:focus,
+.details-form textarea:focus {
+  outline: 2px solid #bde5dc;
+  border-color: #0f766e;
+}
+
+.details-save {
+  margin-top: 6px;
+  padding: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #0f766e;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.details-save:hover {
+  background: #0b5c56;
+}
+
+.image-search-panel {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #dfe8e5;
+}
+
+.image-search-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  color: #17232b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.image-search-heading small {
+  color: #6d7b83;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.image-search-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.image-search-controls input {
+  min-width: 0;
+  flex: 1;
+}
+
+.image-search-controls button {
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: #172f35;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.image-search-controls button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.image-search-results {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: 12px;
+  max-height: 190px;
+  overflow-y: auto;
+}
+
+.image-result {
+  display: grid;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #dfe8e5;
+  border-radius: 8px;
+  background: #f8fbfa;
+  color: #0f766e;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.image-result:hover {
+  border-color: #0f766e;
+  background: #eaf7f3;
+}
+
+.image-result img {
+  width: 100%;
+  display: block;
+  min-height: 52px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.image-search-results {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.details-empty {
+  width: 340px;
+  padding: 30px 22px;
+  color: #6d7b83;
+}
+
+.details-empty span {
+  display: block;
+  color: #0f766e;
+  font-size: 38px;
+  font-weight: 300;
+}
+
+.details-empty h2 {
+  margin: 12px 0 8px;
+  color: #17232b;
+  font-size: 20px;
+}
+
+.details-empty p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.infoProducts .price1,
+.infoProducts .stock1 {
+  position: static;
+  margin: 8px 0 0;
+}
+
+.infoProducts .price1 {
+  color: #0f766e;
+  font-size: 16px;
+}
+
+.infoProducts .stock1 {
+  display: inline-block;
+  width: auto;
+  padding: 4px 8px;
+  background: #d9f2ed;
+  color: #0f766e;
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .details-panel,
+  .details-empty {
+    width: min(92vw, 340px);
+    min-height: auto;
+  }
+}
