@@ -13,6 +13,7 @@ const Products = db.sequelize.define("products",{
 
     description: {
         type: db.Sequelize.TEXT,
+        allowNull: true
     },
 
     categoria: {
@@ -23,14 +24,14 @@ const Products = db.sequelize.define("products",{
 
     estoque: {
         type: db.Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0
     },
     image: {
         type: db.Sequelize.STRING,
+        allowNull: true
     }
     
 
 });
-
 module.exports = Products;

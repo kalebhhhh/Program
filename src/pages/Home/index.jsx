@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react'
 import './style.css'
 import './editstyles.css'
-import IconsProduct from './icos/caixa.png';
-import IconsPedido from './icos/adicionar-produto.png';
-import IconsBar from './icos/bar-chart.png';
-import IconsUser from './icos/multiple-users-silhouette.png'
-import IconConfig from './icos/config.com.png'
 import IcoDelete from './icos/deleteico2.png'
 import './carousels.css'
 import axios from "axios";
+import OrderPage from '../Order/order';
 
 
 
 function Home() {
-// Estados
 const [searchTerm, setSearchTerm] = useState("");
 const [products, setProducts] = useState([]);
 const [selectedProductId, setSelectedProductId] = useState(null);
@@ -143,31 +138,31 @@ const filteredProducts = products
   .sort((first, second) => sortOrder === "price-asc" ? Number(first.price) - Number(second.price) : sortOrder === "price-desc" ? Number(second.price) - Number(first.price) : sortOrder === "stock-desc" ? Number(second.estoque) - Number(first.estoque) : first.name.localeCompare(second.name));
 
 const selectedProduct = products.find(product => product.id === selectedProductId);
+const [currentView, setCurrentView] = useState('home');
 
+if (currentView === 'orders') {
+  return <OrderPage onNavigateHome={() => setCurrentView('home')} />;
+}
 
   return (
     <div className="wrapper">
       <div className="menusLeft">
         <div className="backgroundMENU">
-          <div className="menuICO" style={{ backgroundColor: "rgb(77, 86, 99)", marginRight: "9px", width: "230px"}}>
-            <img src={IconsProduct} alt="Produto" width="40px" style={{ marginLeft: "4px" }} />
+          <div className="menuICO active-item" onClick={() => setCurrentView('home')}>
+            <span className="menu-icon menu-icon--product" aria-hidden="true" />
             <span className="menu-text">Produtos</span>
           </div>
-          <div className="menuICO">
-            <img src={IconsPedido} alt="ped" width="40px" style={{ marginLeft: "6px" }} />
-            <span className="menu-text" style={{ marginLeft: "16px" }}>Pedidos</span>
+          <div className="menuICO" onClick={() => setCurrentView('orders')}>
+            <span className="menu-icon menu-icon--order" aria-hidden="true" />
+            <span className="menu-text">Pedidos</span>
           </div>
           <div className="menuICO">
-            <img src={IconsBar} alt="bar" width="30px" style={{ marginLeft: "8px" }} />
-            <span className="menu-text" style={{ marginLeft: "24px" }}>Estatísticas</span>
+            <span className="menu-icon menu-icon--user" aria-hidden="true" />
+            <span className="menu-text">Usuários</span>
           </div>
           <div className="menuICO">
-            <img src={IconsUser} alt="Usuarios" width="30px" style={{ marginLeft: "8px" }} />
-            <span className="menu-text" style={{ marginLeft: "23px" }}>Usuários</span>
-          </div>
-          <div className="menuICO">
-            <img src={IconConfig} alt="Config" width="30px" style={{ marginLeft: "8px" }} />
-            <span className="menu-text" style={{ marginLeft: "22px" }}>Configurações</span>
+            <span className="menu-icon menu-icon--config" aria-hidden="true" />
+            <span className="menu-text">Configurações</span>
           </div>
         </div>
       </div>
